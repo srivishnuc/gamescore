@@ -6,6 +6,7 @@ import Scores from './Scores';
 const Players = () => {
   var [playersCount, setPlayersCount] = useState(5);
   var [players, setPlayers] = useState([]);
+  var [totalScore, setTotalScore] = useState([])
 
 
   var handlePlayerCount = (e) => {
@@ -13,12 +14,16 @@ const Players = () => {
   };
 
   var handleClick = () => {
-    var tempArr = [];
+    var tempArr1 = [];
+    var tempArr2 = [];
     for (let i = 100 + 1; i <= 100 + parseInt(playersCount); i++) {
-      tempArr.push({ id: i, player: 'player' + i });
+      tempArr1.push({ id: i, player: 'player' + i });
+      tempArr2.push({ playerid: i, score: 0 });
     }
-    setPlayers(tempArr);
+    setPlayers(tempArr1);
+    setTotalScore(tempArr2);
   };
+  console.log(totalScore)
 
   const onChange = index => e => {
     let newArr = [...players]
@@ -49,7 +54,7 @@ const Players = () => {
       ))}
       <button onClick={ConfirmPlayers}>Confirm</button>
 
-      <Scores playersCount={playersCount} players={players} />
+      <Scores playersCount={playersCount} players={players} totalScore={totalScore} setTotalScore={setTotalScore} />
     </div>
   );
 };
