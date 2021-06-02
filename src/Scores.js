@@ -2,6 +2,7 @@
 import PropsTypes from 'prop-types';
 import { useState } from 'react';
 import EnterScore from './Component/EnterScore';
+import Scoreboard from './Component/Scoreboard'
 
 const Score = ({ playersCount, players, totalScore, setTotalScore }) => {
     const [playersScores, setPlayersScores] = useState([])
@@ -34,14 +35,14 @@ const Score = ({ playersCount, players, totalScore, setTotalScore }) => {
     }
 
     const addScore = () => {
-        var score = 0
         var temp = []
-        var totalScore = playersScores.reduce((prevVal, currVal) =>
-            prevVal + currVal.score
+        temp = [...totalScore]
+        temp.forEach((ts, index) => {
+            var sumOfPlayerId = (id) => playersScores.filter(i => i.playerid === id).reduce((prevVal, currVal) => prevVal + parseInt(currVal.score), 0)
+            temp[index] = { playerid: ts.playerid, score: sumOfPlayerId(ts.playerid) }
+        });
 
-
-            , 0)
-        console.log(totalScore)
+        setTotalScore(temp)
     }
 
     Score.propsTypes = { playersCount: PropsTypes.number.isRequired };
@@ -60,7 +61,21 @@ const Score = ({ playersCount, players, totalScore, setTotalScore }) => {
                     <EnterScore key={val.gameno.toString() + val.playerid} gameCount={gameCount} scr={val} onChange={onChange(index)} />
                 ))
                 }
+            </div>
+            <div>
                 <button onClick={addScore}>Calculate</button>
+            </div>
+            <div>
+                <table>
+                    <tbody>
+
+                        {totalScore.map((s, index) => (
+                            < Scoreboard key={index} players={players} playerid={s.playerid} score={s.score} />
+                        ))
+                        }
+
+                    </tbody>
+                </table>
             </div>
         </>
     );
