@@ -1,6 +1,5 @@
+
 const Scoreboard = ({ players, playerid, score }) => {
-    console.log(players)
-    console.log(playerid)
 
     const playerName = () => {
         var name = ""
@@ -11,7 +10,8 @@ const Scoreboard = ({ players, playerid, score }) => {
         })
         return name
     }
-    console.log(playerName())
+
+
     return (<>
         <tr>
             <td>

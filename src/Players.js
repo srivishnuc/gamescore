@@ -23,7 +23,6 @@ const Players = () => {
     setPlayers(tempArr1);
     setTotalScore(tempArr2);
   };
-  console.log(totalScore)
 
   const onChange = index => e => {
     let newArr = [...players]

@@ -42,6 +42,10 @@ const Score = ({ playersCount, players, totalScore, setTotalScore }) => {
             temp[index] = { playerid: ts.playerid, score: sumOfPlayerId(ts.playerid) }
         });
 
+        temp.sort((a, b) => {
+            return a.score - b.score;
+        });
+
         setTotalScore(temp)
     }
 
