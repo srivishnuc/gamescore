@@ -1,6 +1,9 @@
 
 const Scoreboard = ({ players, playerid, score }) => {
 
+
+
+
     const playerName = () => {
         var name = ""
         players.forEach(p => {

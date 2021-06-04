@@ -17,8 +17,15 @@ const Players = () => {
     var tempArr1 = [];
     var tempArr2 = [];
     for (let i = 100 + 1; i <= 100 + parseInt(playersCount); i++) {
-      tempArr1.push({ id: i, player: 'player' + i });
-      tempArr2.push({ playerid: i, score: 0 });
+      if (localStorage.getItem(i) === null) {
+        tempArr1.push({ id: i, player: 'player' + i });
+        tempArr2.push({ playerid: i, score: 0 });
+      }
+      else {
+        tempArr1.push({ id: i, player: localStorage.getItem(i) });
+        tempArr2.push({ playerid: i, score: localStorage.getItem(`score${i}`) });
+      }
+
     }
     setPlayers(tempArr1);
     setTotalScore(tempArr2);
@@ -30,11 +37,7 @@ const Players = () => {
     setPlayers(newArr)
   }
 
-  const ConfirmPlayers = () => {
-    players.forEach((player) => {
-      localStorage.setItem("player" + player.id, player.player)
-    })
-  }
+
 
   return (
     <div>
@@ -49,11 +52,10 @@ const Players = () => {
       />
       <button onClick={handleClick}>Confirm</button>
       {players.map((p, index) => (
-        <PlayerList key={p.id} playerlist={p} ConfirmPlayers={ConfirmPlayers} onChange={onChange(index)} />
+        <PlayerList key={p.id} playerlist={p} onChange={onChange(index)} />
       ))}
-      <button onClick={ConfirmPlayers}>Confirm</button>
 
-      <Scores playersCount={playersCount} players={players} totalScore={totalScore} setTotalScore={setTotalScore} />
+      <Scores playersCount={playersCount} players={players} setPlayers={setPlayers} totalScore={totalScore} setTotalScore={setTotalScore} />
     </div>
   );
 };
